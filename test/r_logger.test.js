@@ -1,26 +1,29 @@
+QUnit.testStart(function( details ) {
+  delete localStorage.loggerLevel;
+});
+
 test("logger:init", function() {
   
-  delete localStorage.loggerLevel;
   logger.init();
+  ok( parseInt(localStorage.loggerLevel) == logger.levels.ERROR, "Was: " + localStorage.loggerLevel + "  expected: " + logger.levels.ERROR);
 
-  ok( parseInt(localStorage.loggerLevel) == logger.levels.WARNING, "Passed!");
-
+  logger.level(logger.levels.INFO);
   logger.init();
-  ok( parseInt(localStorage.loggerLevel) == logger.levels.WARNING, "Passed!");
+  ok( parseInt(localStorage.loggerLevel) == logger.levels.INFO, "Passed!");
 
 });
 
 test("logger:level", function() {
   
   logger.init();
-  ok( parseInt(localStorage.loggerLevel) == logger.levels.WARNING, "Passed!");
-  ok( logger.level() == logger.levels.WARNING, "Passed!");
+  ok( parseInt(localStorage.loggerLevel) == logger.levels.ERROR, "Was: " + localStorage.loggerLevel + "  expected: " + logger.levels.ERROR);
+  ok( logger.level() == logger.levels.ERROR, "Was: " + localStorage.loggerLevel + "  expected: " + logger.levels.ERROR);
 
-  logger.level(logger.levels.ERROR);
-  ok( logger.level() == logger.levels.ERROR, "Passed!");
+  logger.level(logger.levels.NONE);
+  ok( logger.level() == logger.levels.NONE, "Was: " + localStorage.loggerLevel + "  expected: " + logger.levels.NONE);
 
   logger.level(logger.levels.INFO);
-  ok( logger.level() == logger.levels.INFO, "Passed!");
+  ok( logger.level() == logger.levels.INFO, "Was: " + localStorage.loggerLevel + "  expected: " + logger.levels.INFO);
 });
 
 test("logger:debug", function() {
