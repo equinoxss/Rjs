@@ -82,3 +82,54 @@ test("string:capitalize", function(){
   ok( "123".capitalize() == "123", "Passed!");
   ok( "-+=".capitalize() == "-+=", "Passed!");
 });
+
+test("string:chomp", function(){
+  ok( "hello".chomp() == "hello", "Passed!");
+  ok( "hello\n".chomp() == "hello", "Passed!");
+  ok( "hello\r\n".chomp() == "hello", "Passed!");
+  ok( "hello\n\r".chomp() == "hello", "Passed!");
+  ok( "hello\r".chomp() == "hello", "Passed!");
+  ok( "hello \n there".chomp() == "hello \n there", "Passed!");
+  ok( "hello".chomp("llo") == "he", "Passed!");
+});
+
+test("string:chop", function(){
+  ok( "hello".chop() == "hell", "Passed!");
+  ok( "hello\n".chop() == "hello", "Passed!");
+  ok( "hello\r\n".chop() == "hello", "Passed!");
+  ok( "hello\n\r".chop() == "hello", "Passed!");
+  ok( "hello\r".chop() == "hello", "Passed!");
+  ok( "hello \n there".chop() == "hello \n ther", "Passed!");
+  ok( "hello".chop().chop() == "hel", "Passed!");
+});
+
+// test("string:intersection", function(){
+//   var result = "hello".intersection("lo");
+//   ok( result == "lo", "Was: " + result + "  expected: lo");
+  
+//   result = "hello".intersection("hello");
+//   ok( result == "hello", "Was: " + result + "  expected: hello");
+  
+//   result = "hello".intersection("no");
+//   ok( result == "o", "Was: " + result + "  expected: o");
+
+//   result = "hello".intersection("bird");
+//   ok( result == "", "Was: " + result + "  expected: <blank>");
+
+//   ok( "hello".intersection("olleh") == "hello", "Passed!");
+//   ok( "hello".intersection("he","llo") == "hello", "Passed!");
+//   ok( "hello".intersection("") == "", "Passed!");
+// });
+
+test("string:union", function(){
+  ok( "hello".union("lo") == "hello", "Was: " + "hello".union("lo") + "  expected: hello");
+  ok( "hello".union("hello") == "hello", "Was: " + "hello".union("hello") + "  expected: hello");
+  ok( "hello".union("no") == "hellon", "Was: " + "hello".union("no") + "  expected: hellon");
+  ok( "hello".union("bird") == "hellobird", "Was: " + "hello".union("bird") + "  expected: hellobird");
+  ok( "hello".union("olleh") == "hello", "Was: " + "hello".union("olleh") + "  expected: hello");
+  ok( "hello".union("he","llo") == "hello", "Was: " + "hello".union("he","llo") + "  expected: hello");
+  ok( "hello".union("") == "hello", "Was: " + "hello".union("") + "  expected: hello");
+});
+
+
+
