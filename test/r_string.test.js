@@ -44,7 +44,6 @@ test("string:bytes", function() {
 
 });
 
-
 test("string:chars", function() {
   deepEqual( "abc".chars(), ["a","b","c"], "Passed!" );
 
@@ -53,8 +52,18 @@ test("string:chars", function() {
     str.push(c + "-");
   });
   deepEqual( str, ["a-","b-","c-"], "Passed!");
-
 });
+
+test("string:each_char", function() {
+  deepEqual( "abc".each_char(), ["a","b","c"], "Passed!" );
+
+  var str = [];
+  "abc".each_char( function(c){
+    str.push(c + "-");
+  });
+  deepEqual( str, ["a-","b-","c-"], "Passed!");
+});
+
 
 test("string:downcase", function(){
   ok( "Abc".downcase() == "abc", "Passed!");
@@ -121,14 +130,50 @@ test("string:chop", function(){
 //   ok( "hello".intersection("") == "", "Passed!");
 // });
 
-test("string:union", function(){
-  ok( "hello".union("lo") == "hello", "Was: " + "hello".union("lo") + "  expected: hello");
-  ok( "hello".union("hello") == "hello", "Was: " + "hello".union("hello") + "  expected: hello");
-  ok( "hello".union("no") == "hellon", "Was: " + "hello".union("no") + "  expected: hellon");
-  ok( "hello".union("bird") == "hellobird", "Was: " + "hello".union("bird") + "  expected: hellobird");
-  ok( "hello".union("olleh") == "hello", "Was: " + "hello".union("olleh") + "  expected: hello");
-  ok( "hello".union("he","llo") == "hello", "Was: " + "hello".union("he","llo") + "  expected: hello");
-  ok( "hello".union("") == "hello", "Was: " + "hello".union("") + "  expected: hello");
+// test("string:union", function(){
+//   ok( "hello".union("lo") == "hello", "Was: " + "hello".union("lo") + "  expected: hello");
+//   ok( "hello".union("hello") == "hello", "Was: " + "hello".union("hello") + "  expected: hello");
+//   ok( "hello".union("no") == "hellon", "Was: " + "hello".union("no") + "  expected: hellon");
+//   ok( "hello".union("bird") == "hellobird", "Was: " + "hello".union("bird") + "  expected: hellobird");
+//   ok( "hello".union("olleh") == "hello", "Was: " + "hello".union("olleh") + "  expected: hello");
+//   ok( "hello".union("he","llo") == "hello", "Was: " + "hello".union("he","llo") + "  expected: hello");
+//   ok( "hello".union("") == "hello", "Was: " + "hello".union("") + "  expected: hello");
+// });
+
+test("string:hash_code", function(){
+  ok( "hello".hash_code() == 99162322, "Was: " + "hello".hash_code() + "  expected: 99162322");
+  ok( "Hello".hash_code() == 69609650, "Was: " + "hello".hash_code() + "  expected: 69609650");
+  ok( "hEllo".hash_code() == 98209010, "Was: " + "hello".hash_code() + "  expected: 98209010");
+  ok( "Hello".hash_code() != "hello".hash_code(), "Was: " + ("Hello".hash_code() != "hello".hash_code()) + "  expected: true");
+  ok( "The lazy fox jumped".hash_code() == -75483944933, "Was: " + "The lazy fox jumped".hash_code() + "  expected: -75483944933");
+  ok( "12345678".hash_code() == -79170764668, "Was: " + "12345678".hash_code() + "  expected: -79170764668");
+  ok( "Thi!! is99 a$%^".hash_code() == 229496955239, "Was: " + "Thi!! is99 a$%^".hash_code() + "  expected: 229496955239");
+});
+
+test("string:each_line", function(){
+  deepEqual( "hello".each_line(), ["hello"], "Passed!");
+  deepEqual( "hello\rthere".each_line(), ["hello","there"], "Passed!");
+  deepEqual( "hello\r\nthere\rdude\n".each_line(), ["hello","there","dude",""], "Passed!");
+});
+
+test("string:lines", function(){
+  var buffer = []
+  "hello".lines( function(line) {
+    buffer.push(line);
+  });
+  deepEqual(buffer, ["hello"]);
+
+  buffer = []
+  "hello\rthere".lines( function(line) {
+    buffer.push(line);
+  });
+  deepEqual(buffer, ["hello","there"]);
+
+  buffer = []
+  "hello\r\nthere\rdude\n".lines( function(line) {
+    buffer.push(line);
+  });
+  deepEqual(buffer, ["hello","there","dude",""]);
 });
 
 
