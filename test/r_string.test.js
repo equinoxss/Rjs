@@ -176,5 +176,58 @@ test("string:lines", function(){
   deepEqual(buffer, ["hello","there","dude",""]);
 });
 
+test("string:empty", function(){
+  ok( "hello".is_empty() == false, "Was: " + "hello".is_empty() + "  expected: false");
+  ok( ".".is_empty() == false, "Was: " + ".".is_empty() + "  expected: false");
+  ok( "".is_empty() == true, "Was: " + "".is_empty() + "  expected: true");
+});
+
+test("string:end_with", function(){
+  ok( "hello".end_with("o") == true, "Was: " + "hello".end_with("o") + "  expected: true");
+  ok( "icon.png".end_with(".png") == true, "Was: " + "icon.png".end_with(".png") + "  expected: true");
+  ok( "/usr/local/bin/app/logo.jpeg".end_with(".png",".gif",".jpg") == false, "Was: " + "/usr/local/bin/app/logo.jpeg".end_with(".png",".gif",".jpg") + "  expected: false");
+  ok( "[ERROR]".end_with("[ERROR]") == true, "Was: " + "[ERROR]".end_with("[ERROR]") + "  expected: true");
+});
+
+test("string:is_eql", function(){
+  ok( "hello".is_eql() == false, "Was: " + "hello".is_eql() + "  expected: false");
+  ok( "hello".is_eql("hello") == true, "Was: " + ".".is_eql("hello") + "  expected: true");
+  ok( "hello".is_eql("hellO") == false, "Was: " + "hello".is_eql("hellO") + "  expected: false");
+  ok( "#$%^#".is_eql("#$%^#") == true, "Was: " + "#$%^#".is_eql("#$%^#") + "  expected: true");
+});
+
+test("string:gsub", function(){
+  ok( "hello".gsub("l","r") == "herro", "Was: " + "hello".gsub("l","r") + "  expected: true");
+  ok( "hello".gsub(/E/,"R") == "hello", "Was: " + "hello".gsub("E","R") + "  expected: true");
+  ok( "the lazy brown fox".gsub(" ", "") == "thelazybrownfox", "Was: " + "the lazy brown fox".gsub(" ", "") + "  expected: true");
+  ok( "#$%^#".gsub("#","") != "#$%^#", "Was: " + "#$%^#".gsub("#","") + "  expected: false");
+});
+
+test("string:lstrip", function(){
+  ok( "hello".lstrip() == "hello", "Was: " + "hello".lstrip() + "  expected: true");
+  ok( "    hello".lstrip() == "hello", "Was: " + "    hello".lstrip() + "  expected: true");
+  ok( "       hello  ".lstrip() == "hello  ", "Was: " + "       hello  ".lstrip() + "  expected: true");
+});
+
+test("string:rstrip", function(){
+  ok( "hello".rstrip() == "hello", "Was: " + "hello".rstrip() + "  expected: true");
+  ok( "hello   ".rstrip() == "hello", "Was: " + "hello   ".rstrip() + "  expected: true");
+  ok( "hello\r\n  ".rstrip() == "hello", "Was: " + "hello\r\n  ".rstrip() + "  expected: true");
+});
+
+test("string:strip", function(){
+  ok( "hello".strip() == "hello", "Was: " + "hello".strip() + "  expected: true");
+  ok( "  hello   ".strip() == "hello", "Was: " + "  hello  ".strip() + "  expected: true");
+  ok( "   hello\r\n  ".strip() == "hello", "Was: " + "    hello\r\n  ".strip() + "  expected: true");
+});
+
+test("string:hex", function(){
+  ok( "1".hex() == 1, "Was: " + "1".hex() + "  expected: 1");
+  ok( "-10".hex() == -16, "Was: " + "-10".hex() + "  expected: -16");
+  ok( "0x1".hex() == 1, "Was: " + "0x1".hex() + "  expected: 1");
+  ok( isNaN( "sbcee".hex() ), "Was: " + "sbcee".hex() + "  expected: NaN");
+  ok( "0x100".hex() == 256, "Was: " + "0x1".hex() + "  expected: 256");
+  ok( "100".hex() == 256, "Was: " + "0x1".hex() + "  expected: 256");
+});
 
 
