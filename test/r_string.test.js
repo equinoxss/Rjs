@@ -189,11 +189,18 @@ test("string:end_with", function(){
   ok( "[ERROR]".end_with("[ERROR]") == true, "Was: " + "[ERROR]".end_with("[ERROR]") + "  expected: true");
 });
 
-test("string:is_eql", function(){
-  ok( "hello".is_eql() == false, "Was: " + "hello".is_eql() + "  expected: false");
-  ok( "hello".is_eql("hello") == true, "Was: " + ".".is_eql("hello") + "  expected: true");
-  ok( "hello".is_eql("hellO") == false, "Was: " + "hello".is_eql("hellO") + "  expected: false");
-  ok( "#$%^#".is_eql("#$%^#") == true, "Was: " + "#$%^#".is_eql("#$%^#") + "  expected: true");
+test("string:eql", function(){
+  ok( "hello".eql() == false, "Was: " + "hello".eql() + "  expected: false");
+  ok( "hello".eql("hello") == true, "Was: " + "hello".eql("hello") + "  expected: true");
+  ok( "hello".eql("hellO") == false, "Was: " + "hello".eql("hellO") + "  expected: false");
+  ok( "#$%^#".eql("#$%^#") == true, "Was: " + "#$%^#".eql("#$%^#") + "  expected: true");
+});
+
+test("string:equals", function(){
+  ok( "hello".equals() == false, "Was: " + "hello".equals() + "  expected: false");
+  ok( "hello".equals("hello") == true, "Was: " + "hello".equals("hello") + "  expected: true");
+  ok( "hello".equals("hellO") == false, "Was: " + "hello".equals("hellO") + "  expected: false");
+  ok( "#$%^#".equals("#$%^#") == true, "Was: " + "#$%^#".equals("#$%^#") + "  expected: true");
 });
 
 test("string:gsub", function(){
@@ -230,4 +237,29 @@ test("string:hex", function(){
   ok( "100".hex() == 256, "Was: " + "0x1".hex() + "  expected: 256");
 });
 
+test("string:include", function(){
+  ok( "hello".include("lo") == true, "Was: " + "hello".include("lo") + "  expected: true");
+  ok( "hello".include("ol") == false, "Was: " + "hello".include("lo") + "  expected: false");
+  ok( "hello".include("hello") == true, "Was: " + "hello".include("hello") + "  expected: true");
+});
+
+test("string:includes", function(){
+  ok( "hello".includes("lo") == true, "Was: " + "hello".includes("lo") + "  expected: true");
+  ok( "hello".includes("ol") == false, "Was: " + "hello".includes("lo") + "  expected: false");
+  ok( "hello".includes("hello") == true, "Was: " + "hello".includes("hello") + "  expected: true");
+});
+
+test("string:index", function(){
+  ok( "hello".index("lo") == 3, "Was: " + "hello".index("lo") + "  expected: 3");
+  ok( "hello".index("ol") == null, "Was: " + "hello".index("ol") + "  expected: null");
+  ok( "hello".index("hello") == 0, "Was: " + "hello".index("hello") + "  expected: 0");
+
+  ok( "hello".index("lo", 1) == 3, "Was: " + "hello".index("lo", 1) + "  expected: 3");
+  ok( "hello".index("ol", -3) == null, "Was: " + "hello".index("ol", -3) + "  expected: null");
+  ok( "hello".index("hello", -5) == 0, "Was: " + "hello".index("hello", -5) + "  expected: 0");
+
+  ok( "hello".index(/lo/, 1) == 3, "Was: " + "hello".index(/lo/, 1) + "  expected: 3");
+  ok( "hello".index(/ol/, -3) == null, "Was: " + "hello".index(/ol/, -3) + "  expected: null");
+  ok( "hello".index(/hello/, -5) == 0, "Was: " + "hello".index(/hello/, -5) + "  expected: 0");
+});
 
