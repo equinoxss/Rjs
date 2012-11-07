@@ -328,3 +328,35 @@ test("string:rindex", function(){
   verify_result( "hello".rindex(/[aeiou]/), 4);
   verify_result( "hello".rindex(/[aeiou]/, -2), 1);
 });
+
+test("string:scan", function() {
+  verify_deep_equal( "hello".scan(/./), ["h", "e", "l", "l", "o"] );
+  verify_deep_equal( "hello".scan(/../), ["he", "ll"] );
+  verify_deep_equal( "hello".scan(/.l/), ["el"] );
+
+  var buffer = []
+  "hello".scan(/./, function(match) {
+    buffer.push(match);
+  });
+  deepEqual(buffer, ["h", "e", "l", "l", "o"]);
+});
+
+test("string:squeeze", function(){
+  verify_result( "aaaabbbccdd".squeeze(), "abcd" );
+  verify_result( "stressed".squeeze(), "stresed" );
+  verify_result( "!!    @##$".squeeze(), "! @#$" );
+});
+
+test("string:start_with", function(){
+  verify_result( "hello".start_with("he"), true );
+  verify_result( "hello".start_with("hello"), true );
+  verify_result( "hello".start_with("heaven","hell"), true );
+  verify_result( "hello".start_with("cat","dog"), false );
+});
+
+test("string:translate", function() {
+  verify_result( "hello".translate('el', 'ip'), "hippo" );
+  verify_result( "hello".translate('aeiou', '*'), "h*ll*" );
+  verify_result( "hello".translate('^aeiou', '*'), "*e**o" );
+});
+
