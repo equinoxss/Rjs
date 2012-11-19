@@ -63,8 +63,45 @@ test("array:intersect", function() {
 });
 
 test("array:union", function() {
-    verify_deep_equal([1,2].union(), [1,2]);
-    verify_deep_equal([1,2].union([1]), [1,2,1]);
-    verify_deep_equal([1,2].union([1],[2],["a"]), [1,2,1,2,"a"]);
+  verify_deep_equal([1,2].union(), [1,2]);
+  verify_deep_equal([1,2].union([1]), [1,2,1]);
+  verify_deep_equal([1,2].union([1],[2],["a"]), [1,2,1,2,"a"]);
 });
 
+test("array:includes", function() {
+    verify_result([1,2].includes(1), true);
+    verify_result([1,2].includes(""), false);
+    verify_result([1,2].includes(3), false);
+});
+
+test("array:delete_if", function() {
+  verify_deep_equal([1,2].delete_if(function(i){return false;}), [1,2]);
+  verify_deep_equal([1,2].delete_if(function(i){return true;}), []);
+  verify_deep_equal([1,2].delete_if(function(i){return i == 1;}), [2]);
+  verify_deep_equal([1,2,3,4,1,1,5,3,1,6].delete_if(function(i){return i == 1;}), [2,3,4,5,3,6]);
+});
+
+test("array:reject", function() {
+  verify_deep_equal([1,2].reject(function(i){return false;}), [1,2]);
+  verify_deep_equal([1,2].reject(function(i){return true;}), []);
+  verify_deep_equal([1,2].reject(function(i){return i == 1;}), [2]);
+  verify_deep_equal([1,2,3,4,1,1,5,3,1,6].reject(function(i){return i == 1;}), [2,3,4,5,3,6]);
+});
+
+test("array:compare", function() {
+  verify_result(["a","b"].compare(["a","b"]), 0);
+  verify_result(["a","b"].compare(["a"]), 1);
+  verify_result(["a","b"].compare(["a","b","c"]), -1);
+});
+
+test("array:equals", function() {
+  verify_result(["a","b"].equals(["a","b"]), true);
+  verify_result(["a","b"].equals(["a"]), false);
+  verify_result(["a","b"].equals(["a","b","c"]), false);
+});
+
+test("array:map", function() {
+  verify_deep_equal([1,2].map(function(i){return i+1;}), [2,3]);
+  verify_deep_equal([1,2].map(function(i){return "a"+i;}), ["a1","a2"]);
+  verify_deep_equal(["a","b","c"].map(function(i){return i.upcase()}), ["A","B","C"]);
+});
